@@ -23,8 +23,8 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    // http://localhost:8088/api/v1/reports/bill/
-    @PostMapping(value = {"/bill/"}, produces = MediaType.APPLICATION_PDF_VALUE)
+    // http://localhost:8088/api/v1/reports/bill
+    @PostMapping(value = {"/bill"}, produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<byte[]> getReport(@RequestBody List<ReportEntity> reports) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
