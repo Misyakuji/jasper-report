@@ -11,16 +11,22 @@ chmod +x mvnw
 ./mvnw spring-boot:run
 ```
 
-### Project build in Docker
+### maven打包
 
 ```sh
-./mvnw clean package '-Dmaven.test.skip=true' && docker-compose up --build
+./mvnw clean package '-Dmaven.test.skip=true'
 
 ```
 
-### Project Setup in Docker
+### Docker构建并启动
 
 ```sh
-./mvnw clean package '-Dmaven.test.skip=true' && docker-compose up -d
+docker-compose up --build
+
+```
+### Docker后台启动
+
+```sh
+docker-compose up -d
 
 ```
