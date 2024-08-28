@@ -2,6 +2,7 @@ package com.misyakuji.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,9 +14,15 @@ public class StartupRunner implements ApplicationRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(StartupRunner.class);
 
+    @Value("${server.address:127.0.0.1}")
+    private String serverAddress;
+
+    @Value("${server.port:8080}")
+    private int serverPort;
+
     @Override
     public void run(ApplicationArguments args) {
-        String url = "http://localhost:8088/api/v1/reports/bill_example?type=show";
+        String url = String.format("http://%s:%d/api/v1/reports/bill_example?type=show", serverAddress, serverPort);
         logger.info("See example {}", url);
 
         if (isDesktopEnvironment()) {
