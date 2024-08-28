@@ -35,3 +35,31 @@ docker-compose up --build
 ```shell
 docker-compose up -d
 ```
+
+
+## Docker常用操作
+
+### Docker列出所有容器
+```shell
+docker ps -a
+```
+
+### Docker列出所有镜像
+```shell
+docker images
+```
+
+### Docker删除模糊匹配的容器
+```shell
+docker rm -f $(docker ps -a --filter "name=jasper" -q)
+```
+
+### Docker删除模糊匹配的镜像
+```shell
+docker rmi -f $(docker images --filter "reference=*jasper*" -q)
+```
+
+### Docker删除所有 <none> 标签的镜像
+```shell
+docker rmi -f $(docker images -f "dangling=true" -q)
+```
