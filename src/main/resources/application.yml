@@ -4,5 +4,5 @@ spring:
 
 # Application service
 server:
-  port: 8082
+  port: 8088
 #  address: 127.0.0.1
