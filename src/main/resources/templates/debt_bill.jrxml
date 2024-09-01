@@ -6,7 +6,7 @@
 
 	<variable name="totalAmount" class="java.math.BigDecimal" calculation="Sum">
 		<expression><![CDATA[$F{amount}]]></expression>
-		<resetType>None</resetType>
+<!--		<resetType>None</resetType>-->
 		<incrementType>None</incrementType>
 	</variable>
 
