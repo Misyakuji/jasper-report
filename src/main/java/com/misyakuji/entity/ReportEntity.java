@@ -1,17 +1,20 @@
 package com.misyakuji.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ReportEntity {
     private String date;
     private BigDecimal amount;
     private String remark;
+    private String timestamp;
+
+    public ReportEntity() {
+        this.timestamp = LocalDateTime.now().atZone(ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }
