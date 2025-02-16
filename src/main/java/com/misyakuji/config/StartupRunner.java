@@ -20,14 +20,17 @@ public class StartupRunner implements ApplicationRunner {
     @Value("${server.port:8080}")
     private int serverPort;
 
+    @Value("${auto-open:false}")
+    private boolean autoOpenFlag;
+
     @Override
     public void run(ApplicationArguments args) {
         String url = String.format("http://%s:%d/api/v1/reports/bill/example?inline=true", serverAddress, serverPort);
         logger.info("See example {}", url);
 
-        if (isDesktopEnvironment()) {
+        if (autoOpenFlag) {
             // 启动后自动打开链接
-            // openBrowser(url);
+             openBrowser(url);
         }
     }
 
@@ -39,13 +42,18 @@ public class StartupRunner implements ApplicationRunner {
     private void openBrowser(String url) {
         try {
             String os = System.getProperty("os.name").toLowerCase();
+            String[] command;
             if (os.contains("win")) {
-                Runtime.getRuntime().exec("cmd /c start " + url);
+                command = new String[]{"cmd", "/c", "start", url};
             } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
-                Runtime.getRuntime().exec("xdg-open " + url);
+                command = new String[]{"xdg-open", url};
             } else {
-                logger.warn("Unsupported operating systems: {}", os);
+                logger.warn("Unsupported operating system: {}", os);
+                return;
             }
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            processBuilder.inheritIO(); // 继承当前进程的输入输出流
+            processBuilder.start(); // 启动进程
         } catch (IOException e) {
             logger.error("Error when automatically opening the browser", e);
         }
